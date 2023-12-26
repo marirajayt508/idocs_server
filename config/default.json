@@ -8,7 +8,8 @@
     "db" : {
       "uri" : "mongodb://localhost:27017/idocs",
       "collections" : {
-        "users" : "users"
+        "users" : "users",
+        "auth" : "auth"
       },
       "NODE_ENV" : "dev"
     },

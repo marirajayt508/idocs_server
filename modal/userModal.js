@@ -26,6 +26,9 @@ const userSchema =  new mongoose.Schema({
 "usermail": {
     "type" : String,
   },
+  "password":{
+    "type" : String,
+  },
   "status":{
     "type" : String,
   },

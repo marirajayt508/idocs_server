@@ -1,12 +1,13 @@
 const userModal = require("../modal/userModal")
 
-exports.addUser = async(username,mail,fields,uploades,status)=>{
+exports.addUser = async(username,usermail,fields,uploades,status,password)=>{
     let data = {
         "_id" : username+"idocs",
         username,
         fields,
         uploades,
-        "usermail" : mail,
+        password,
+        usermail,
          status
       }
     await userModal.insertMany(data)

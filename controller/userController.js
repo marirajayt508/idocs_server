@@ -3,8 +3,10 @@ const asyncErrorHandler = require("../utils/asyncErrorHandler")
 const {add,view,get,del} = require('../services/awsService')
 const {addUser,delUser,getUser} = require("../services/userdbService")
 const {mailer} = require("../utils/mailer")
+const authModal = require(".././modal/authModal")
 const config = require('config');
 const { gtoken, vtoken } = require("../services/jwtService")
+const { genpass } = require("../utils/otp")
 //ADD USER
 const appname = config.get("app.name");
 const phone = config.get("app.phone");
@@ -16,6 +18,7 @@ exports.adduser = asyncErrorHandler(async (_request,_response,next)=>{
     let fields = _request.body.fields;
     let uploades = _request.body.uploades;
     let username = name.trim().toLowerCase();
+    let otp = genpass(10)
     let serviceResponse = {
         status : false
     }; 
@@ -30,11 +33,24 @@ next(err)
     const datas = await view();
     if(datas.indexOf(`${username}/`)==-1)
     {
-        addUser(username,mail,fields,uploades,"initated")
+        let dataauth = {
+            _id : username+"idocs",
+            mail,
+            password : otp
+        }
+        addUser(username,mail,fields,uploades,"initated",otp)
+        await authModal.insertMany(dataauth)
+        // addUserAuth(otp,mail,otp)
         let udatas = await getUser(username);
-        let jdata = {
-            "_id" : udatas._id,
-            "role" : udatas.role,
+        // let jdata = {
+        //     "_id" : udatas._id,
+        //     "role" : udatas.role,
+        // }
+                let jdata = {
+                    username,
+                    role : 'user',
+            mail,
+            otp,
         }
         serviceResponse = {
            status : await add(`${name.toLowerCase()}/`)
@@ -43,11 +59,16 @@ next(err)
        let datas = `Dear ${username.toUpperCase()},<br/> <br/>I hope this message finds you well.<br/><br/>
        As part of our ongoing process, we kindly request that you upload the necessary documents by clicking the link
        <br/><br/>
-       <a href=${config.get("app.ui.link")+"?ut="+token}>Click here</a> to upload your documents.
+       <div style="padding : '3px'; border : '1px';">
+        <strong>Email:</strong> <i><code>${mail}</code></i><br/>
+        <strong>Password:</strong> <i><code style="color : 'green'">${otp}</code></i>
+        </div>
+       <br/>
+       <a href=${config.get("app.ui.link")+'?ut='+token}>Click here</a> to login and upload your documents. For loging use the above unique credentials.
        <br/><br/>If you encounter any issues or have any questions regarding the document upload process, please feel free to reach out to ${phone} for assistance.
        <br/><br/>Thanks & Regards<br/>iDocs Team.`
        let sub = `${appname} - Documents Upload`
-       mailer(mail,sub,datas)
+    //    mailer(mail,sub,datas)
     }
     _response.status(codes.success)
     .json(serviceResponse);
@@ -72,7 +93,9 @@ exports.deleteuser = asyncErrorHandler(async (_request,_response,next)=>{
     }
     let serviceResponse = {status : await del(`${username}/`)};
     if(await view())
-    delUser(username)
+  {  delUser(username)
+await authModal.findByIdAndDelete(username+'idocs')
+}
     _response.status(codes.success)
     .json(serviceResponse);
 })
