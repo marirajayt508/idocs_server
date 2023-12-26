@@ -1,0 +1,30 @@
+{
+   "app": {
+    "name" : "iDocs",
+    "phone" : "9080122084",
+    "env" : "development",
+    "bscriptSalt" : 10,
+    "jwt" : "qswer-hasw12_@",
+    "db" : {
+      "uri" : "mongodb://localhost:27017/idocs",
+      "collections" : {
+        "users" : "users"
+      },
+      "NODE_ENV" : "dev"
+    },
+    "aws" : {
+      "ACCESS_KEY" : "AKIAVN7DN22NYUUMJ4MZ",
+      "ACCESS_SECRET" : "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",
+      "REGION" : "ap-south-1",
+      "BUCKET" : "dechr"
+    },
+    "email" : {
+      "id" : "noreplay.idocs@gmail.com",
+      "password" : "doxockqvqgpawqna"
+    },
+    "ui" : {
+      "link" : "http://localhost:3000/"
+    }
+   }
+}
+
