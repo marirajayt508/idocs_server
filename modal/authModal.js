@@ -19,6 +19,9 @@ const authSchema =  new mongoose.Schema({
 "mail": {
     "type" : String,
   },
+  'role' : {
+ "type" : String,
+  },
   "password":{
     "type" : String,
   },
@@ -26,4 +29,4 @@ const authSchema =  new mongoose.Schema({
 
 const authModal = mongoose.model(config.get("app.db.collections.auth"),authSchema);
 
-module.exports = authModal;
+module.exports = authModal; 

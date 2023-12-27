@@ -36,21 +36,20 @@ next(err)
         let dataauth = {
             _id : username+"idocs",
             mail,
+            'role': 'user',
             password : otp
         }
         addUser(username,mail,fields,uploades,"initated",otp)
         await authModal.insertMany(dataauth)
-        // addUserAuth(otp,mail,otp)
         let udatas = await getUser(username);
         // let jdata = {
         //     "_id" : udatas._id,
         //     "role" : udatas.role,
         // }
                 let jdata = {
-                    username,
-                    role : 'user',
-            mail,
+            un : username,
             otp,
+            role : 'user'
         }
         serviceResponse = {
            status : await add(`${name.toLowerCase()}/`)
@@ -60,7 +59,7 @@ next(err)
        As part of our ongoing process, we kindly request that you upload the necessary documents by clicking the link
        <br/><br/>
        <div style="padding : '3px'; border : '1px';">
-        <strong>Email:</strong> <i><code>${mail}</code></i><br/>
+        <strong>Email:</strong> ${name.toUpperCase()}<br/>
         <strong>Password:</strong> <i><code style="color : 'green'">${otp}</code></i>
         </div>
        <br/>
@@ -68,7 +67,7 @@ next(err)
        <br/><br/>If you encounter any issues or have any questions regarding the document upload process, please feel free to reach out to ${phone} for assistance.
        <br/><br/>Thanks & Regards<br/>iDocs Team.`
        let sub = `${appname} - Documents Upload`
-    //    mailer(mail,sub,datas)
+       mailer(mail,sub,datas)
     }
     _response.status(codes.success)
     .json(serviceResponse);
