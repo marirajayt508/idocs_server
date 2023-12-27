@@ -6,7 +6,6 @@ const {getUser} = require("../../services/userdbService")
 // GET LOGIN
 exports.login = asyncErrorHandler(async (_request,_response,next)=>{
     let body = _request.body;
-    console.log(body)
     let serviceResponse = {
         status : await authModal.findById(body.mail+'idocs')
     };

@@ -31,14 +31,11 @@ const userSchema =  new mongoose.Schema({
   },
   "status":{
     "type" : String,
-  },
-  "fields" : {
-"type" : Array,
-"defaul" : [] 
+    "default" : "initiated"
   },
   "uploades" : {
     "type" : Array,
-    "defaul" : [] 
+    "default" : [] 
       },
   "date":{
     "type" : Date,

@@ -15,20 +15,15 @@ exports.adduser = asyncErrorHandler(async (_request,_response,next)=>{
 
     let mail = _request.body.email.trim();
     let name = _request.body.name.trim();
-    let fields = _request.body.fields;
     let uploades = _request.body.uploades;
     let username = name.trim().toLowerCase();
     let otp = genpass(10)
-    let serviceResponse = {
+    let serviceResponse = { 
         status : false
     }; 
     if((!username&&!mail))
     {
 next(err)
-    }
-    if(fields.length==0)
-    {
-        next(err)
     }
     const datas = await view();
     if(datas.indexOf(`${username}/`)==-1)
@@ -39,13 +34,9 @@ next(err)
             'role': 'user',
             password : otp
         }
-        addUser(username,mail,fields,uploades,"initated",otp)
+        console.log(dataauth)
+        addUser(username,mail,uploades,"initated",otp)
         await authModal.insertMany(dataauth)
-        let udatas = await getUser(username);
-        // let jdata = {
-        //     "_id" : udatas._id,
-        //     "role" : udatas.role,
-        // }
                 let jdata = {
             un : username,
             otp,

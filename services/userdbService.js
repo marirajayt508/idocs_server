@@ -1,10 +1,9 @@
 const userModal = require("../modal/userModal")
 
-exports.addUser = async(username,usermail,fields,uploades,status,password)=>{
+exports.addUser = async(username,usermail,uploades,status,password)=>{
     let data = {
         "_id" : username+"idocs",
         username,
-        fields,
         uploades,
         password,
         usermail,
