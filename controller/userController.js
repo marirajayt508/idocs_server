@@ -7,6 +7,8 @@ const authModal = require(".././modal/authModal")
 const config = require('config');
 const { gtoken, vtoken } = require("../services/jwtService")
 const { genpass } = require("../utils/otp")
+const {hashPassword} = require("../utils/bcryptPass")
+
 //ADD USER
 const appname = config.get("app.name");
 const phone = config.get("app.phone");
@@ -18,6 +20,7 @@ exports.adduser = asyncErrorHandler(async (_request,_response,next)=>{
     let uploades = _request.body.uploades;
     let username = name.trim().toLowerCase();
     let otp = genpass(10)
+    let password = await hashPassword(otp)
     let serviceResponse = { 
         status : false
     }; 
@@ -32,13 +35,13 @@ next(err)
             _id : username+"idocs",
             mail,
             'role': 'user',
-            password : otp
+            password
         }
-        console.log(dataauth)
+
         addUser(username,mail,uploades,"initated",otp)
         await authModal.insertMany(dataauth)
                 let jdata = {
-            un : username,
+            un : mail,
             otp,
             role : 'user'
         }
@@ -50,7 +53,7 @@ next(err)
        As part of our ongoing process, we kindly request that you upload the necessary documents by clicking the link
        <br/><br/>
        <div style="padding : '3px'; border : '1px';">
-        <strong>Email:</strong> ${name.toUpperCase()}<br/>
+        <strong>Email: </strong> ${mail}<br/>
         <strong>Password:</strong> <i><code style="color : 'green'">${otp}</code></i>
         </div>
        <br/>
