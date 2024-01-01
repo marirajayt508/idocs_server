@@ -33,7 +33,11 @@ const userSchema =  new mongoose.Schema({
     "type" : String,
     "default" : "initiated"
   },
-  "uploades" : {
+  "fields" : {
+  "type" : Array,
+  "default" : []
+  },
+  "uploads" : {
     "type" : Array,
     "default" : [] 
       },

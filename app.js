@@ -4,6 +4,7 @@ const app = express();
 const userRouter = require('./router/userRouter')
 const authRouter = require('./router/authRouter')
 const adminRouter = require('./router/adminRoute')
+const saverRoute = require("./router/saveRoute")
 const dotenv = require("dotenv");
 const db_connection = require("./db_connection/connection")
 const {awsConfig} = require('./utils/aws')
@@ -24,6 +25,7 @@ db_connection()
 app.use("/auth",authRouter)
 app.use("/users",userRouter)
 app.use("/admin",adminRouter)
+app.use("/save",saverRoute)
 
 //Export Module
 module.exports = app;

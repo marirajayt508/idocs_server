@@ -9,6 +9,7 @@ const { gtoken, vtoken } = require("../services/jwtService")
 const { genpass } = require("../utils/otp")
 const {hashPassword} = require("../utils/bcryptPass")
 
+
 //ADD USER
 const appname = config.get("app.name");
 const phone = config.get("app.phone");
@@ -17,7 +18,6 @@ exports.adduser = asyncErrorHandler(async (_request,_response,next)=>{
 
     let mail = _request.body.email.trim();
     let name = _request.body.name.trim();
-    let uploades = _request.body.uploades;
     let username = name.trim().toLowerCase();
     let otp = genpass(10)
     let password = await hashPassword(otp)
@@ -38,7 +38,7 @@ next(err)
             password
         }
 
-        addUser(username,mail,uploades,"initated",otp)
+        addUser(username,mail,"initated",otp)
         await authModal.insertMany(dataauth)
                 let jdata = {
             un : mail,
@@ -96,8 +96,9 @@ await authModal.findByIdAndDelete(username+'idocs')
 // GET ALL USERS
 exports.getuser = asyncErrorHandler(async (_request,_response,next)=>{
     let username = _request.body.username.trim().toLowerCase();
-    let token = _request.headers.authorization.substring(7);
-    if(!username&&!vtoken(token))
+    // let token = _request.headers.authorization.substring(7);
+    // &&!vtoken(token)
+    if(!username)
     {
         next(err)
     }
