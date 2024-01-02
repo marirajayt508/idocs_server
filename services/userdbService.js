@@ -27,3 +27,7 @@ exports.delUser = async(username)=>{
 exports.saveFields = async(_id,fields)=>{
     await userModal.findByIdAndUpdate({_id},{fields})
 }
+
+exports.saveUploads = async(_id,uploads)=>{
+    await userModal.findByIdAndUpdate({_id},{uploads})
+}

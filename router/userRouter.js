@@ -25,8 +25,8 @@ const upload = multer({
         acl: "public-read",
         bucket: BUCKET,
         key: function (req, file, cb) {
-            console.log("DATAS",req.params.filename,req.body.username);
-            cb(null, `${req.body.username}/${file.originalname=req.params.filename.toUpperCase()+"_"+req.body.username.toUpperCase()}`)
+            console.log("DATAS",req.body.username);
+            cb(null, `${req.body.username.slice(0,-5)}/${file.originalname=req.body.filename.toUpperCase()+"_"+req.body.username.toUpperCase().slice(0,-5)}`)
         }
     })
 })
@@ -43,7 +43,7 @@ router.route("/get")
 router.route("/deleteuser/:username")
 .delete(user.deleteuser);
 
-router.route("/access/:filename")
+router.route("/access")
 .post(upload.single('file'),user.accessuser);
 
 //Export Module

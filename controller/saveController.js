@@ -1,7 +1,7 @@
 const {fields,uploads} = require("../utils/constants")
 const asyncErrorHandler = require("../utils/asyncErrorHandler")
 const codes = require("../utils/resonsecode")
-const {saveFields,getUser} = require("../services/userdbService")
+const {saveFields,getUser, saveUploads} = require("../services/userdbService")
 const {mailer} = require("../utils/mailer")
 const config = require('config');
 
@@ -63,8 +63,17 @@ To continue filling out your form, please log in to your portal using the creden
 //SAVE UPLODS
 exports.saveUploads = asyncErrorHandler(async (_request,_response,next)=>{
 
+    const body = _request.body;
+    const _id = body._id;
+    const ufields = body.uploads;
+
+    if(!_id && !ufields)
+    {
+        next(err)
+    }
+    await saveUploads(_id,ufields)
     let serviceResponse = {
-        "datas" : {fields,uploads}
+        "datas" : true
   };
 
     _response.status(codes.success)

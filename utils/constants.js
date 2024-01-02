@@ -39,7 +39,7 @@ exports.fields = [
 exports.uploads = [
     {
      name : 'Aadhar Card',
-     type : 'document',
+     type : 'file',
      status : 'upending',
      value : '',
      mandate : true,
@@ -70,3 +70,6 @@ exports.uploads = [
     //     comments : ''
     // },
   ]
+
+
+  const awsUrl = "https://dechr.s3.ap-south-1.amazonaws.com/"
