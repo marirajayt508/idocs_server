@@ -57,8 +57,8 @@ next(err)
         <strong>Password:</strong> <i><code style="color : 'green'">${otp}</code></i>
         </div>
        <br/>
-       <a href=${config.get("app.ui.link")+'?ut='+token}>Click here</a> to login and upload your documents. For loging use the above unique credentials.
-       <br/><br/>If you encounter any issues or have any questions regarding the document upload process, please feel free to reach out to ${phone} for assistance.
+       <a href=${config.get("app.ui.link")+'/login'}>Click here</a> to login and upload your documents. For loging use the above unique credentials.<br/>
+       <br/>If you encounter any issues or have any questions regarding the document upload process, please feel free to reach out to ${phone} for assistance.
        <br/><br/>Thanks & Regards<br/>iDocs Team.`
        let sub = `${appname} - Documents Upload`
        mailer(mail,sub,datas)

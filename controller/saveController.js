@@ -41,17 +41,7 @@ exports.saveFields = asyncErrorHandler(async (_request,_response,next)=>{
     const db_datas = await getUser(_id);
     const mail = db_datas.usermail;
     await saveFields(_id,ufields)
-    let datas = `Dear ${_id.slice(0,-5).toUpperCase()},<br/> <br/>Your <b>Details Saved</b> to our server.<br/><br/>
-   
-To continue filling out your form, please log in to your portal using the credentials that were sent to you in the initial email.
-    <br/>
-    <br/>
-    <a href=${config.get("app.ui.link")}>Login Link</a>
-    <br/>
-    <br/><br/>If you encounter any issues or have any questions regarding the document upload process, please feel free to reach out to ${phone} for assistance.
-    <br/><br/>Thanks & Regards<br/>iDocs Team.`
-    let sub = `${_id.slice(0,-5).toUpperCase()} - Basic Details Saved`
-    mailer(mail,sub,datas)
+
     let serviceResponse = {
         "datas" : true
   };
@@ -71,6 +61,7 @@ exports.saveUploads = asyncErrorHandler(async (_request,_response,next)=>{
     {
         next(err)
     }
+    // console.log()
     await saveUploads(_id,ufields)
     let serviceResponse = {
         "datas" : true
