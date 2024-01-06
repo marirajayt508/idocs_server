@@ -110,22 +110,22 @@ exports.getuser = asyncErrorHandler(async (_request,_response,next)=>{
 })
 
 // GET ALL USERS
-exports.accessuser = asyncErrorHandler(async (_request,_response,next)=>{
-    let body = _request.body;
-    console.log(body)
-    let serviceResponse = {
-        datas : true
-    };
-    _response.status(codes.success)
-    .json(serviceResponse);
-})
+exports.accessuser = asyncErrorHandler(async (_request, _response, _next) => {
+    // const fileBuffer = _request.file.buffer;
+    // const base64Data = fileBuffer.toString('base64');
+    // const dataUrl = `data:${_request.file.mimetype};base64,${base64Data}`;
+    
+    let serviceResponse = { url: "dataUrl" };
+  
+    _response.status(200).json(serviceResponse);
+  });
 
 // GET UPLOADES
 exports.upload = asyncErrorHandler(async (_request,_response,next)=>{
-    // let body = _request.body;
-    let serviceResponse = {
-        status : true
-    };
+    const fileBuffer = req.file.buffer;
+    const base64Data = fileBuffer.toString('base64');
+    const dataUrl = `data:${req.file.mimetype};base64,${base64Data}`;
+    let serviceResponse = { url: dataUrl }
     _response.status(codes.success)
     .json(serviceResponse);
 })

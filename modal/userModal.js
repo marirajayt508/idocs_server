@@ -26,9 +26,6 @@ const userSchema =  new mongoose.Schema({
 "usermail": {
     "type" : String,
   },
-  "password":{
-    "type" : String,
-  },
   "status":{
     "type" : String,
     "default" : "initiated"
@@ -37,10 +34,6 @@ const userSchema =  new mongoose.Schema({
   "type" : Array,
   "default" : []
   },
-  "uploads" : {
-    "type" : Array,
-    "default" : [] 
-      },
   "date":{
     "type" : Date,
     "default" : Date.now

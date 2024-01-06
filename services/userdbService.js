@@ -5,10 +5,8 @@ exports.addUser = async(username,usermail,status,password)=>{
     let data = {
         "_id" : username+"idocs",
         username,
-        password,
         usermail,
         fields,
-        uploads,
          status
       }
     await userModal.insertMany(data)

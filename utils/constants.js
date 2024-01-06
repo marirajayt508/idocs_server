@@ -7,6 +7,14 @@ exports.fields = [
      mandate : true,
      comments : ''
     },
+    {
+        name : 'Aadhar Card',
+        type : 'file',
+        status : 'upending',
+        value : '',
+        mandate : true,
+        comments : ''
+       },
     // {
     //     name : 'Gender',
     //     type : 'radio',
