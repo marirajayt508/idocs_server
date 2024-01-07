@@ -8,6 +8,30 @@ exports.fields = [
      comments : ''
     },
     {
+        name : 'Mail Id',
+        type : 'text',
+        status : 'upending',
+        value : '',
+        mandate : true,
+        comments : ''
+       },
+       {
+        name : 'Phone Number',
+        type : 'text',
+        status : 'upending',
+        value : '',
+        mandate : true,
+        comments : ''
+       },
+       {
+        name : 'Aadhar Number',
+        type : 'text',
+        status : 'upending',
+        value : '',
+        mandate : true,
+        comments : ''
+       },
+    {
         name : 'Aadhar Card',
         type : 'file',
         status : 'upending',
@@ -15,15 +39,31 @@ exports.fields = [
         mandate : true,
         comments : ''
        },
-    // {
-    //     name : 'Gender',
-    //     type : 'radio',
-    //     options : ['Male','Femal'],
-    //     status : 'upending',
-    //     value : '',
-    //     mandate : true,
-    //     comments : ''
-    // },
+       {
+        name : 'PAN Number',
+        type : 'text',
+        status : 'upending',
+        value : '',
+        mandate : true,
+        comments : ''
+       },
+       {
+        name : 'PAN Card',
+        type : 'file',
+        status : 'upending',
+        value : '',
+        mandate : true,
+        comments : ''
+       },
+    {
+        name : 'Gender',
+        type : 'radio',
+        options : ['Male','Femal'],
+        status : 'upending',
+        value : '',
+        mandate : false,
+        comments : ''
+    },
     // {
     //     name : 'Education',
     //     type : 'check',
@@ -33,15 +73,23 @@ exports.fields = [
     //     mandate : true,
     //     comments : ''
     // },
-    // {
-    //     name : 'State',
-    //     type : 'select',
-    //     options : ['Tamilnadu','Andra'],
+        // {
+    //     name : 'Birth Day',
+    //     type : 'date',
     //     status : 'upending',
-    //     value : '',
+    //     value : [],
     //     mandate : true,
     //     comments : ''
     // },
+    {
+        name : 'State',
+        type : 'select',
+        options : ['Tamilnadu','Andra'],
+        status : 'upending',
+        value : '',
+        mandate : true,
+        comments : ''
+    },
 ]
 
 exports.uploads = [

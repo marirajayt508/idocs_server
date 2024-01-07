@@ -12,8 +12,9 @@ exports.login = asyncErrorHandler(async (_request,_response,next)=>{
 
     if(!mail && !otp)
     {next(err)}
-
+   
     let datas = await authModal.findOne({mail});
+    console.log(datas)
     let logins = await comparePassword(otp,datas.password)
     let serviceResponse = {};
 

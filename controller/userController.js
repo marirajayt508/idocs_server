@@ -8,7 +8,7 @@ const config = require('config');
 const { gtoken, vtoken } = require("../services/jwtService")
 const { genpass } = require("../utils/otp")
 const {hashPassword} = require("../utils/bcryptPass")
-
+const userModal = require("../modal/userModal")
 
 //ADD USER
 const appname = config.get("app.name");
@@ -114,8 +114,13 @@ exports.accessuser = asyncErrorHandler(async (_request, _response, _next) => {
     // const fileBuffer = _request.file.buffer;
     // const base64Data = fileBuffer.toString('base64');
     // const dataUrl = `data:${_request.file.mimetype};base64,${base64Data}`;
-    
-    let serviceResponse = { url: "dataUrl" };
+    let body = _request.body;
+    let value = `${body.username.slice(0,-5)}/${body.filename.toUpperCase()}_${body.username.slice(0,-5).toUpperCase()}`
+    const result = await userModal.updateOne(
+        { _id: body.username, 'fields.name': body.filename },
+        { $set: { 'fields.$.value': value } }
+      );
+    let serviceResponse = { url: result };
   
     _response.status(200).json(serviceResponse);
   });

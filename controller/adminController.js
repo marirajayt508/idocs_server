@@ -4,6 +4,7 @@ const {mailer} = require("../utils/mailer")
 const authModal = require(".././modal/authModal")
 const config = require('config');
 const { genpass } = require("../utils/otp")
+const {hashPassword} = require("../utils/bcryptPass")
 
 const appname = config.get("app.name");
 const phone = config.get("app.phone");
@@ -24,10 +25,10 @@ next(err)
     }
 
     let dataauth = {
-        _id : username+"idocs",
+        _id : name,
         mail,
         'role': 'admin',
-        password : otp
+        password : await hashPassword(otp)
     }
     await authModal.insertMany(dataauth)
         serviceResponse = {
@@ -37,7 +38,7 @@ next(err)
 
        let datas = `Dear ${username.toUpperCase()},<br/> <br/>Your admin accout activated.<br/><br/>
        <div style="padding : '3px'; border : '1px';">
-        <strong>Email:</strong> ${name.toUpperCase()}<br/>
+        <strong>Email:</strong> ${mail}<br/>
         <strong>Password:</strong> <i><code style="color : 'green'">${otp}</code></i>
         </div>
        <br/>

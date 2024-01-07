@@ -12,17 +12,28 @@ exports.getDatas = asyncErrorHandler(async (_request,_response,next)=>{
 
     const body = _request.body;
     const _id = body._id;
-
-    if(!_id)
+    const role = body.role;
+    if(!_id && !role)
     {
         next(err)
     }
-    const db_datas = await getUser(_id);
+    let serviceResponse = {
+        datas : []
+    }
+    if(role == 'user')
+{    const db_datas = await getUser(_id);
     let fields = db_datas.fields
     let uploads = db_datas.uploads
-    let serviceResponse = {
+     serviceResponse = {
         "datas" : {fields,uploads}
-  };
+  };}
+
+  if(role == 'admin')
+  {
+    serviceResponse = {
+        datas : true
+    }
+  }
 
     _response.status(codes.success)
     .json(serviceResponse);
